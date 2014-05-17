@@ -1,3 +1,19 @@
+Server
+------
+### Events
+* `connect` - Tracker connected
+* `heartbeat` - Tracker sent heartbeat packet
+* `report` - Tracker sent report
+* `alarm` - Tracker sent alarm
+* `message.in` - Tracker sent message
+* `message.out` - Message was sent to tracker
+* `error` - Error happened
+* `disconnect` - Tracker has disconnected
+
+### Methods
+* `Server(options)` - Constructor
+* `listen(port, callback)` - Binds server to the specified port
+
 Tracker
 -------
 ### Events
@@ -31,3 +47,16 @@ Tracker
 * `setSpeedingAlarm(speed, callback)` - Sets speeding alarm
 * `setMovementAlarm(radius, callback)` - Sets movement alarm
 * `setGeofenceAlarm(latitude, longitude, radius, callback)` - Sets geofence alarm
+
+Message
+-------
+* `Message(options)` - Constructor
+* `createFromBuffer(buffer, mode)` - Creates new message from binary data
+* `getCommandNameByCode(code)` - Returns command name by code
+* `resolveCommand(code)` - Resolves response command code for specified command
+* `parseCommandResult(code, buffer)` - Parses command execution result
+* `toString()` - Returns readable message information
+* `toBuffer()` - Returns encoded message as Buffer
+
+
+
