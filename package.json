@@ -1,0 +1,20 @@
+{
+  "name": "meiligao",
+  "description": "Nodejs implementation of meiligao communication protocol",
+  "keywords": ["meiligao", "meitrack", "tracker", "gps"],
+  "author": "Alexander Vasin <truenrush@gmail.com>",
+  "license": "MIT",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avasin/nodejs-meiligao.git"
+  },
+  "dependencies": {
+    "crc": "*",
+    "extend": "*"
+  },
+  "main": "./index",
+  "engines": {
+    "node": "*"
+  }
+}
