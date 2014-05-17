@@ -15,24 +15,19 @@ Tracker
 * `Tracker(connection, options)` - Constructor
 * `request(message, callback)` - Puts given message in a queue
 * `send(message)` - Sends given message immediately
-
 * `getCurrentCoords(callback)` - Returns current tracker location
 * `getSnImei(callback)` - Returns tracker serial number & imei
 * `resetConfiguratimeon(callback)` - Resets tracker configuration, except password, ip, port, apn, tracker id and report time interval
 * `clearMileage(callback)` - Clears mileage
 * `setHeartbeatInterval(minutes, callback)` - Sets heartbeat interval
-
 * `getAuthorizedPhone(button, callback)` - Returns authorized phone
 * `setAuthorizedPhone(smsPhone, callPhone, callback)` - Sets authorized phone
-
 * `setReportDistanceInterval(meters, callback)` - Sets report distance interval
 * `getReportTimeInterval(callback)` - Returns report time interval
 * `setReportTimeInterval(interval, callback)` - Sets report time interval
-
 * `setMemoryReportInterval(seconds, callback)` - Sets memory report time interval
 * `getMemoryReports(callback)` - Returns all reports, stored in memory
 * `clearMemoryReports(callback)` - Clears memory reports
-
 * `setSpeedingAlarm(speed, callback)` - Sets speeding alarm
 * `setMovementAlarm(radius, callback)` - Sets movement alarm
 * `setGeofenceAlarm(latitude, longitude, radius, callback)` - Sets geofence alarm
