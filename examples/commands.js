@@ -32,6 +32,23 @@ server.on('connect', function(tracker) {
         // } else {
             // console.log('RESET CONFIGURATION: ', result);
         // }
+    // });        
+    
+    // tracker.setExtendedSettings({
+        // smsReplyOnCall    : true,
+        // useGPRMSFormat    : false,
+        // hangUpAfter5Rings : false,
+        // enableCallBuzzer  : false,
+        // enableLedLights   : true,
+        // alarmPowerOn      : true,
+        // alarmPowerCut     : false,
+        // alarmGpsBlindArea : false,
+    // }, function(err, result){
+        // if (err) {
+            // console.log('SET EXTENDED SETTINGS ERROR: ', err);
+        // } else {
+            // console.log('SET EXTENDED SETTINGS: ', result);
+        // }
     // });    
     
     // tracker.setHeartbeatInterval(1, function(err, result){
@@ -149,3 +166,4 @@ server.on('error', function(error, tracker){ console.log('error happened', error
 
 // Handle disconnects
 server.on('disconnect', function(tracker){ console.log('tracker disconnected'); });
+
