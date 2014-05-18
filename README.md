@@ -1,6 +1,6 @@
 About
 ------
-This is nodejs implementation of Meiligao protocol used for GPRS communication between server & Meitrack GPS trackers.
+This is nodejs implementation of Meiligao protocol used for GPRS communication between server & [Meitrack](http://www.meitrack.net/) GPS trackers.
 Following trackers are supported:
 * GT30i
 * GT60
