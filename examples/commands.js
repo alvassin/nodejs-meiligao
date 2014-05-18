@@ -65,6 +65,14 @@ server.on('connect', function(tracker) {
         // } else {
             // console.log('CLEAR MILEAGE: ', result);
         // }
+    // });      
+    
+    // tracker.setPowerDownTimeout(15, function(err, result){
+        // if (err) {
+            // console.log('SET POWER DOWN TIMEOUT ERROR: ', err);
+        // } else {
+            // console.log('SET POWER DOWN TIMEOUT: ', result);
+        // }
     // });    
     
     // tracker.getMemoryReports(function(err, reports){
