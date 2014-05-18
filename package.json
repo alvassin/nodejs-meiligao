@@ -1,10 +1,10 @@
 {
   "name": "meiligao",
-  "description": "Nodejs implementation of meiligao communication protocol",
-  "keywords": ["meiligao", "meitrack", "tracker", "gps", "GT30i", "GT60", "VT300", "VT310", "VT400"],
+  "description": "Nodejs implementation of Meiligao communication protocol",
+  "keywords": ["Meiligao", "Meitrack", "tracker", "gps", "GT30i", "GT60", "VT300", "VT310", "VT400"],
   "author": "Alexander Vasin <truenrush@gmail.com>",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/avasin/nodejs-meiligao.git"
