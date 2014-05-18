@@ -7,6 +7,7 @@ var server = new meiligao.Server().listen(20180, function(error) {
 });
 
 // All commands will be executed one by one
+// Uncomment commands to enable
 server.on('connect', function(tracker) { 
 
     // tracker.requestReport(function(err, data) {
@@ -57,27 +58,27 @@ server.on('connect', function(tracker) {
         // }
     // });        
     
-    // tracker.setMemoryReportInterval(1, function(err, reports){
+    // tracker.setMemoryReportInterval(1, function(err, result){
         // if (err) {
             // console.log('SET MEMORY REPORT INTERVAL ERROR: ', err);
         // } else {
-            // console.log('SET MEMORY REPORT INTERVAL: ', reports);
+            // console.log('SET MEMORY REPORT INTERVAL: ', result);
         // }
     // });    
     
-    // tracker.clearMemoryReports(function(err, reports){
+    // tracker.clearMemoryReports(function(err, result){
         // if (err) {
             // console.log('CLEAR MEMORY REPORTS ERROR: ', err);
         // } else {
-            // console.log('CLEAR MEMORY REPORTS: ', reports);
+            // console.log('CLEAR MEMORY REPORTS: ', result);
         // }
     // });
         
-    // tracker.setAuthorizedPhones(79295114443, 79295114443, function(err, reports){
+    // tracker.setAuthorizedPhones(79991234567, 79991234567, function(err, result){
         // if (err) {
             // console.log('SET AUTHORIZED PHONE ERROR: ', err);
         // } else {
-            // console.log('SET AUTHORIZED PHONE: ', reports);
+            // console.log('SET AUTHORIZED PHONE: ', result);
         // }
     // });    
     
@@ -90,29 +91,53 @@ server.on('connect', function(tracker) {
     // });
     
     
-    tracker.setReportTimeInterval(2, function(err, interval){
-        if (err) {
-            console.log('SET REPORT TIME INTERVAL ERROR: ', err);
-        } else {
-            console.log('SET REPORT TIME INTERVAL: ', interval);
-        }
-    });        
+    // tracker.setReportTimeInterval(2, function(err, result){
+        // if (err) {
+            // console.log('SET REPORT TIME INTERVAL ERROR: ', err);
+        // } else {
+            // console.log('SET REPORT TIME INTERVAL: ', result);
+        // }
+    // });        
     
-    tracker.setReportDistanceInterval(300, function(err, interval){
-        if (err) {
-            console.log('SET REPORT DISTANCE INTERVAL ERROR: ', err);
-        } else {
-            console.log('SET REPORT DISTANCE INTERVAL: ', interval);
-        }
-    });    
+    // tracker.getReportTimeInterval(function(err, interval){
+        // if (err) {
+            // console.log('GET REPORT TIME INTERVAL ERROR: ', err);
+        // } else {
+            // console.log('GET REPORT TIME INTERVAL: ', interval);
+        // }
+    // });
     
-    tracker.getReportTimeInterval(function(err, interval){
-        if (err) {
-            console.log('GET REPORT TIME INTERVAL ERROR: ', err);
-        } else {
-            console.log('GET REPORT TIME INTERVAL: ', interval);
-        }
-    });
+    // tracker.setReportDistanceInterval(300, function(err, result){
+        // if (err) {
+            // console.log('SET REPORT DISTANCE INTERVAL ERROR: ', err);
+        // } else {
+            // console.log('SET REPORT DISTANCE INTERVAL: ', result);
+        // }
+    // });    
+    
+    // tracker.setAlarmSpeeding(15, function(err, result){
+        // if (err) {
+            // console.log('SET ALARM SPEEDING ERROR: ', err);
+        // } else {
+            // console.log('SET ALARM SPEEDING: ', result);
+        // }
+    // });       
+    
+    // tracker.setAlarmMovement(0x03, function(err, result){
+        // if (err) {
+            // console.log('SET ALARM MOVEMENT ERROR: ', err);
+        // } else {
+            // console.log('SET ALARM MOVEMENT: ', result);
+        // }
+    // });        
+    
+    // tracker.setAlarmGeofence(55.753905, 37.620872, 200, function(err, result){
+        // if (err) {
+            // console.log('SET ALARM GEOFENCE ERROR: ', err);
+        // } else {
+            // console.log('SET ALARM GEOFENCE: ', result);
+        // }
+    // });    
     
 });
 
