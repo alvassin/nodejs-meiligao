@@ -34,6 +34,14 @@ server.on('connect', function(tracker) {
         // }
     // });        
     
+    // tracker.rebootGps(function(err, result){
+        // if (err) {
+            // console.log('REBOOT GPS ERROR: ', err);
+        // } else {
+            // console.log('REBOOT GPS: ', result);
+        // }
+    // });        
+    
     // tracker.setExtendedSettings({
         // smsReplyOnCall    : true,
         // useGPRMSFormat    : false,
