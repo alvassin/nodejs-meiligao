@@ -1,7 +1,7 @@
 {
   "name": "meiligao",
   "description": "Nodejs implementation of meiligao communication protocol",
-  "keywords": ["meiligao", "meitrack", "tracker", "gps"],
+  "keywords": ["meiligao", "meitrack", "tracker", "gps", "GT30i", "GT60", "VT300", "VT310", "VT400"],
   "author": "Alexander Vasin <truenrush@gmail.com>",
   "license": "MIT",
   "version": "0.0.1",
