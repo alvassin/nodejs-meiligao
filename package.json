@@ -4,7 +4,7 @@
   "keywords": ["Meiligao", "Meitrack", "tracker", "gps", "GT30i", "GT60", "VT300", "VT310", "VT400"],
   "author": "Alexander Vasin <truenrush@gmail.com>",
   "license": "MIT",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/avasin/nodejs-meiligao.git"
