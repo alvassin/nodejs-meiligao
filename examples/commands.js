@@ -44,7 +44,7 @@ server.on('connect', function(tracker) {
     
     // tracker.setExtendedSettings({
         // smsReplyOnCall    : true,
-        // useGPRMSFormat    : false,
+        // useGPRMSFormat    : false, // works for sms only
         // hangUpAfter5Rings : false,
         // enableCallBuzzer  : false,
         // enableLedLights   : true,
