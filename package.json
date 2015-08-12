@@ -1,6 +1,6 @@
 {
   "name": "meiligao",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Nodejs implementation of Meiligao communication protocol",
   "author": "Alexander Vasin <hello@alvass.in>",
   "main": "index.js",
