@@ -37,7 +37,7 @@ server.listen(20180, function(error) {
 ```
 
 # meiligao.Tracker
-Designed to iteract with GPS trackers. Accepts `timeout` option. `meiligao.Tracker` is created automatically by `meiligao.Server` for every connection, so `timeout` option will be taken from `meiligao.Server` options list.
+Designed to iteract with GPS trackers. Accepts `timeout` option, (which is passed automatically by `meiligao.Server`).
 
 ```js
 var meiligao = require('meiligao');
@@ -465,4 +465,4 @@ tracker.setAlarmGeofence(55.753905, 37.620872, 200, function(err, result){
 
 # Under the hood
 Command names mapping, message types list & all other stuff related to message processing is located in [Message.js](https://github.com/alvassin/nodejs-meiligao/blob/master/lib/Message.js) file. 
-[Original protocol documentation](https://github.com/alvassin/nodejs-meiligao/blob/master/examples/docs/specs.pdf) is also included in case you will need deep understanding how Meiligao protocol works.
+[Original protocol documentation](https://github.com/alvassin/nodejs-meiligao/blob/master/docs/specs.pdf) is also included in case you will need deep understanding how Meiligao protocol works.
