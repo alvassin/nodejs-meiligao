@@ -3,15 +3,56 @@ This is nodejs implementation of Meiligao protocol (GPRS communication protocol 
 
 To start, install this module with command `npm install meiligao` and see [events handling](https://github.com/alvassin/nodejs-meiligao/blob/master/examples/events.js) and [command execution](https://github.com/alvassin/nodejs-meiligao/blob/master/examples/commands.js) examples.
 
-This module provides tree objects, you can find related docs below:
-* `meiligao.Server` is server, which accepts tracker connections; 
-* `meiligao.Tracker` represents trackers, that establish connections and communicate with server;
-* `meiligao.Message` is used to decode/encode messages between `meiligao.Server` & trackers.
+# meiligao.Server
+Designed to handle tracker connections. Accepts `timeout` option, that is automatically passed to `meiligao.Tracker` objects.
 
-I also have included [original protocol documentation](https://github.com/alvassin/nodejs-meiligao/blob/master/examples/docs/specs.pdf), in case you will need deep understanding how Meiligao protocol works.
+```js
+var meiligao = require('meiligao');
+var server = new meiligao.Server({ timeout: 120000 });
+```
 
-# Tracker
-`meiligao.Tracker` can be used to iteract with GPS tracker, connected to the `meiligao.Server`.
+## Events
+#### connect
+Is emitted when tracker establishes connect with `meiligao.Server`. Parameters: 
+* `tracker`: `meiligao.Tracker` object
+
+#### disconnect
+Is emitted when tracker closes connection. Parameters: 
+* `tracker`: `meiligao.Tracker` object
+
+## Methods
+#### listen	
+Bind server to the specified port.
+
+Parameter | Type     | Description
+----------|----------|------------
+port      | integer  | Port number
+callback  | function | User callback
+
+```js
+server.listen(20180, function(error) {
+  if (error) throw error;
+  console.log('gps server is listening');
+});
+```
+
+# meiligao.Tracker
+Designed to iteract with GPS trackers. Accepts `timeout` option. `meiligao.Tracker` is created automatically by `meiligao.Server` for every connection, so `timeout` option will be taken from `meiligao.Server` options list.
+
+```js
+var meiligao = require('meiligao');
+
+var server = new meiligao.Server({
+    timeout: 120000
+}).listen(20180, function(error) {
+    if (error) throw error;
+    console.log('gps server is listening');
+});
+
+server.on('connect', function(tracker) { 
+    console.log('tracker connected!');
+});
+```
 
 ## Events
 #### heartbeat
@@ -50,7 +91,7 @@ Is emitted after connection is timed out (timeout can be configured in Tracker o
 
 ## Methods
 #### disconnect
-Closes tracker connection.
+Close tracker connection.
 
 ```js
 var meiligao = require('meiligao');
@@ -71,7 +112,7 @@ server.on('connect', function(tracker) {
 ```
 
 #### requestReport
-Requests GPS report (internal: track on demand `0x4101`)
+Request GPS report (internal: track on demand `0x4101`)
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -88,7 +129,7 @@ tracker.requestReport(function(err, data) {
 ```
 
 #### getSnImei
-Requests serial number & IMEI from tracker (internal: `0x9001`).
+Request serial number & IMEI from tracker (internal: `0x9001`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -105,7 +146,7 @@ tracker.getSnImei(function(err, data) {
 ```
 
 #### resetConfiguration
-Make all settings (except for the password, IP, Port, APN, ID and GPRS interval) back to factory default (internal: `0x4110`).
+Revert all settings (except for the password, IP, Port, APN, ID and GPRS interval) back to factory default (internal: `0x4110`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -139,7 +180,7 @@ tracker.rebootGps(function(err, result){
 ```
 
 #### setExtendedSettings
-Sets extended tracker settings (internal: `0x4108`).
+Set extended tracker settings (internal: `0x4108`).
 
 Parameter         | Type    | Default | Description
 ------------------|---------|---------|------------
@@ -151,7 +192,7 @@ setting.enableLedLights   | boolean | true    | When is set to false, lights sto
 setting.alarmPowerOn      | boolean | true    | Send sms alarm to the authorized phone number for SOS, and a GPRS alarm to the server, when the tracker is turned on.
 setting.alarmPowerCut     | boolean | false   | Send sms alarm to the authorized phone number for SOS when the power of the vehicle tracker is cut.
 setting.alarmGpsBlindArea | boolean | false   | Send sms alarm when the tracker enters GPS blind area.
-callback          | function | User callback
+callback                  | function | -      | User callback
 
 ```js
 tracker.setExtendedSettings({
@@ -191,7 +232,7 @@ tracker.setHeartbeatInterval(1, function(err, result){
 ```
 
 #### clearMileage
-Deletes total mileage (internal: `0x4351`).
+Delete total mileage (internal: `0x4351`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -208,7 +249,7 @@ tracker.clearMileage(function(err, result){
 ```
 
 #### setPowerDownTimeout
-Sets inactivity timeout, after which tracker will go to energy saving mode (internal: `0x4126`).
+Set inactivity timeout, after which tracker will go to energy saving mode (internal: `0x4126`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -226,7 +267,7 @@ tracker.setPowerDownTimeout(15, function(err, result){
 ```
 
 #### getMemoryReports
-Reads logged data and returns reports array (high-level wrapper for internal command `0x9016`).
+Read logged data and returns reports array (high-level wrapper for internal command `0x9016`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -243,7 +284,7 @@ tracker.getMemoryReports(function(err, reports){
 ```
 
 #### setMemoryReportInterval
-Sets interval for saving coordinates in memory, when internet is not available (internal: `0x4131`).
+Set interval for saving coordinates in memory, when internet is not available (internal: `0x4131`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -261,7 +302,7 @@ tracker.setMemoryReportInterval(1, function(err, result){
 ```
 
 #### clearMemoryReports
-Clears reports stored in memory (internal: `0x5503`).
+Clear reports stored in memory (internal: `0x5503`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -278,7 +319,7 @@ tracker.clearMemoryReports(function(err, result){
 ```
 
 #### getAuthorizedPhones
-Returns authorized phone numbers (internal: `0x9003`).
+Return authorized phone numbers (internal: `0x9003`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -295,7 +336,7 @@ tracker.getAuthorizedPhones(function(err, phones){
 ```
 
 #### setAuthorizedPhones
-Sets authorized phone for sos button, for receiving sms & calls (internal: `0x4103`).
+Set authorized phone for sos button, for receiving sms & calls (internal: `0x4103`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -314,7 +355,7 @@ tracker.setAuthorizedPhones(79991234567, 79991234567, function(err, result){
 ```
 
 #### getReportTimeInterval
-Retrieves reporting time interval from tracker, 1 unit = 10 seconds (internal: `0x9002`).
+Retrieve reporting time interval from tracker, 1 unit = 10 seconds (internal: `0x9002`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -331,7 +372,7 @@ tracker.getReportTimeInterval(function(err, interval){
 ```
 
 #### setReportTimeInterval
-Sets reporting time interval (internal: `0x4102`, `0x5100`).
+Set reporting time interval (internal: `0x4102`, `0x5100`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -367,7 +408,7 @@ tracker.setReportDistanceInterval(300, function(err, result){
 ```
 
 #### setAlarmSpeeding
-Sets speeding alarm (internal: `0x4105`).
+Set speeding alarm (internal: `0x4105`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -385,7 +426,7 @@ tracker.setAlarmSpeeding(15, function(err, result){
 ```
 
 #### setAlarmMovement
-Sets movement alarm (internal: `0x4106`).
+Set movement alarm (internal: `0x4106`).
 
 Parameter | Type    | Description
 ----------|---------|------------
@@ -403,7 +444,7 @@ tracker.setAlarmMovement(0x03, function(err, result){
 ```
 
 #### setAlarmGeofence
-Sets geo-fence alarm (internal: `0x4302`).
+Set geo-fence alarm (internal: `0x4302`).
 
 Parameter | Type     | Description
 ----------|----------|------------
@@ -421,97 +462,7 @@ tracker.setAlarmGeofence(55.753905, 37.620872, 200, function(err, result){
   }
 });
 ```
-# Server
-`meiligao.Server` can be used to handle tracker connections. 
 
-## Events
-Server re-emits [all events emitted by `meiligao.Tracker`](#events), adding tracker to callback parameters.
-
-#### connect
-Is emitted when tracker establishes connect with `meiligao.Server`.
-
-## Methods
-#### listen	
-Binds server to the specified port.
-
-Parameter | Type     | Description
-----------|----------|------------
-port      | integer  | Port number
-callback  | function | User callback
-
-```js
-var meiligao = require('meiligao');
-var server = new meiligao.Server().listen(20180, function(error) {
-  if (error) throw error;
-  console.log('gps server is listening');
-});
-```
-
-# Message		
-`meiligao.Message` provides functionality to parse & generate messages, that are transferred between trackers & `meilgao.Server`. In fact, you don't need to iteract with this object - most of it's functionality works under the hood.
-
-#### Commands mapping
-* `0x5000`: `Message.commands.LOGIN` (sent by tracker)
-* `0x4000`: `Message.commands.CONFIRM_LOGIN`
-* `0x9001`: `Message.commands.GET_SN_IMEI`
-* `0x4101`: `Message.commands.REQUEST_REPORT`
-* `0x4110`: `Message.commands.RESET_CONFIGURATION`
-* `0x4902`: `Message.commands.REBOOT_GPS`
-* `0x4108`: `Message.commands.SET_EXTENDED_SETTINGS`
-* `0x5199`: `Message.commands.SET_HEARTBEAT_INTERVAL`
-* `0x4351`: `Message.commands.CLEAR_MILEAGE`
-* `0x4126`: `Message.commands.SET_POWER_DOWN_TIMEOUT`
-* `0x9016`: `Message.commands.GET_MEMORY_REPORT`
-* `0x4131`: `Message.commands.SET_MEMORY_REPORT_INTERVAL`
-* `0x5503`: `Message.commands.CLEAR_MEMORY_REPORTS`
-* `0x9003`: `Message.commands.GET_AUTHORIZED_PHONE`
-* `0x4103`: `Message.commands.SET_AUTHORIZED_PHONE`
-* `0x9002`: `Message.commands.GET_REPORT_TIME_INTERVAL`
-* `0x4102`: `Message.commands.SET_REPORT_TIME_INTERVAL`
-* `0x5100`: `Message.commands.SET_REPORT_TIME_INTERVAL_RESULT`
-* `0x4303`: `Message.commands.SET_REPORT_DISTANCE_INTERVAL`
-* `0x4105`: `Message.commands.SET_ALARM_SPEEDING`
-* `0x4106`: `Message.commands.SET_ALARM_MOVEMENT`
-* `0x4302`: `Message.commands.SET_ALARM_GEOFENCE`
-* `0x9955`: `Message.commands.REPORT` (sent by tracker)
-* `0x9999`: `Message.commands.ALARM` (sent by tracker)
-
-#### Message types
-* `0x14`: `REPORT_POWER_ON`
-* `0x00`: `REPORT_BY_TIME` (custom code, for integrity)
-* `0x63`: `REPORT_BY_DISTANCE`
-* `0x15`: `REPORT_BLIND_AREA_START`
-* `0x16`: `REPORT_BLIND_AREA_END`
-* `0x52`: `REPORT_DIRECTION_CHANGE`
-* `0x01`: `ALARM_SOS_PRESSED`
-* `0x31`: `ALARM_SOS_RELEASED`
-* `0x10`: `ALARM_LOW_BATTERY`
-* `0x11`: `ALARM_SPEEDING`
-* `0x12`: `ALARM_MOVEMENT` (movement & geo-fence)
-
-#### Modes
-Message.MODE_NORMAL   = 0;
-Message.MODE_RAW_DATA  = 1;
-
-## Methods
-
-#### createFromBuffer
-Creates message from buffer.
-
-#### getCommandNameByCode
-Returns command name using specified code.
-
-#### resolveCommand
-Returns response command code for specified request command code. As some commands have different codes for requests & responses, this can be useful to resolve which code you will see in answer.
-
-#### getMessageTypeByCode
-Returns message type by specified code.
-
-#### parseCommandResult
-Parses command execution result.
-
-#### toString
-Returns compact string representation, useful for debugging
-
-#### toBuffer
-Returns encoded message as Buffer. If useRawData flag is true, data will be interpreted as hex.
+# Under the hood
+Command names mapping, message types list & all other stuff related to message processing is located in [Message.js](https://github.com/alvassin/nodejs-meiligao/blob/master/lib/Message.js) file. 
+[Original protocol documentation](https://github.com/alvassin/nodejs-meiligao/blob/master/examples/docs/specs.pdf) is also included in case you will need deep understanding how Meiligao protocol works.
